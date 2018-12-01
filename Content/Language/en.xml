@@ -1,0 +1,17 @@
+<language lang="en">
+	<!--> 	
+	<string id=""></string>
+ 	</-->
+
+ 	<string id="start">Start</string>
+	<string id="exit">Quit (thanks for playing)</string>
+
+	<string id="population">Population</string>
+	<string id="Wood">Wood</string>
+	<string id="Food">Food</string>
+	<string id="Stone">Stone</string>
+
+	<string id="Hut">Production</string>
+
+</language>
+

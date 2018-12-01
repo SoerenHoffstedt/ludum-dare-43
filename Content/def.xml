@@ -1,0 +1,112 @@
+<!--->
+Auto Tile Neighbour Tile Index:
+Up : 1
+Right : 2
+Down : 4
+Left : 8
+ </-->
+
+ <definitions>
+
+ 	<tiles atlas="graphics" w="16" h="16">
+ 		<tile index="0" x="4" y="6" />
+ 		<tile index="1" x="4" y="7" />
+ 		<tile index="2" x="3" y="6" />
+ 		<tile index="3" x="0" y="7" />
+ 		<tile index="4" x="4" y="5" />
+		<tile index="5" x="3" y="5" />
+		<tile index="6" x="0" y="5" />
+		<tile index="7" x="0" y="6" />
+ 		<tile index="8" x="5" y="6" />
+ 		<tile index="9" x="2" y="7" />
+ 		<tile index="10" x="5" y="5" />
+ 		<tile index="11" x="1" y="7" />
+ 		<tile index="12" x="2" y="5" />
+ 		<tile index="13" x="2" y="6" />
+ 		<tile index="14" x="1" y="5" />
+ 		<tile index="15" x="1" y="6" />
+ 	</tiles>
+
+ 	<graphics>
+ 		<resources>
+ 			<sprite name="Food"  atlas="graphics" x="0" y="64" w="16" h="16" />
+ 			<sprite name="Stone" atlas="graphics" x="16" y="64" w="16" h="16" />
+ 			<sprite name="Wood"  atlas="graphics" x="32" y="64" w="16" h="16" />
+ 		</resources> 	
+ 		<icons>
+ 			<sprite name="Food"  atlas="graphics" x="0" y="48" w="16" h="16" />
+ 			<sprite name="Stone" atlas="graphics" x="16" y="48" w="16" h="16" />
+ 			<sprite name="Wood"  atlas="graphics" x="32" y="48" w="16" h="16" />
+ 		</icons>	
+ 		<sprites>
+ 			
+ 			<!-- <sprite name="" atlas="graphics" x="" y="" w="16" h="16" /> -->
+ 			
+ 			<sprite name="Hut" atlas="graphics" x="0" y="128" w="16" h="16" />
+ 			<sprite name="FoodBuilding" atlas="graphics" x="16" y="128" w="16" h="16" />
+ 			<sprite name="StoneBuilding" atlas="graphics" x="32" y="128" w="16" h="16" />
+ 			<sprite name="WoodBuilding" atlas="graphics" x="48" y="128" w="16" h="16" />
+ 			<sprite name="Cave" atlas="graphics" x="64" y="128" w="16" h="16" />
+
+			<sprite name="selectTile" atlas="graphics" x="0" y="144" w="16" h="16" />
+			<sprite name="selectActor" atlas="graphics" x="16" y="144" w="16" h="16" />
+
+ 		</sprites>
+ 	</graphics>
+
+ 	<animations atlas="graphics" w="16" h="16">
+ 		<anim id="idle">
+ 		
+ 		</anim>
+ 		<anim id="cheer">
+
+ 		</anim>
+ 		<anim id="work">
+
+ 		</anim>
+ 	</animations>
+
+ 	<blueprints>
+
+		<buildings>
+			<building name="Food" type="Production" produces="Food" productionAmount="1" productionTime="10" sprite="FoodBuilding">
+				<buildingCosts>
+					<cost resource="Wood" amount="5" />
+					<cost resource="Stone" amount="5" />
+				</buildingCosts>				
+			</building>
+
+			<building name="Wood Spinner" type="Production" produces="Wood" productionAmount="1" productionTime="15" sprite="WoodBuilding">
+				<buildingCosts>
+					<cost resource="Wood" amount="5" />
+					<cost resource="Stone" amount="5" />
+				</buildingCosts>
+			</building>
+
+			<building name="Stone Mill" type="Production" produces="Stone" productionAmount="1" productionTime="15" sprite="StoneBuilding">
+				<buildingCosts>
+					<cost resource="Wood" amount="5" />
+					<cost resource="Stone" amount="5" />
+				</buildingCosts>
+			</building>
+
+			<building name="Reproduction Cave" type="ReproductionCave" produces="NoneCount" productionAmount="0" productionTime="0" sprite="Cave">
+				<buildingCosts>
+					<cost resource="Food" amount="15" />
+					<cost resource="Wood" amount="15" />
+					<cost resource="Stone" amount="15" />
+				</buildingCosts>
+			</building>
+
+			<building name="Hut" type="Hut" produces="NoneCount" productionAmount="0" productionTime="0"  sprite="Hut">
+				<buildingCosts>					
+					<cost resource="Wood" amount="5" />
+					<cost resource="Stone" amount="5" />
+				</buildingCosts>
+			</building>			
+
+		</buildings>
+
+ 	</blueprints>
+
+ </definitions>
