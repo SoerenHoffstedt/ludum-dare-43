@@ -10,6 +10,7 @@
 	<string id="Wood">Wood</string>
 	<string id="Food">Food</string>
 	<string id="Stone">Stone</string>
+	<string id="NoneCount"> - </string>
 
 	<string id="Hut">Production</string>
 

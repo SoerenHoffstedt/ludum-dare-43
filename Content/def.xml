@@ -8,7 +8,7 @@ Left : 8
 
  <definitions>
 
- 	<tiles atlas="graphics" w="16" h="16">
+ 	<tiles texture="graphics" w="16" h="16">
  		<tile index="0" x="4" y="6" />
  		<tile index="1" x="4" y="7" />
  		<tile index="2" x="3" y="6" />
@@ -29,32 +29,57 @@ Left : 8
 
  	<graphics>
  		<resources>
- 			<sprite name="Food"  atlas="graphics" x="0" y="64" w="16" h="16" />
- 			<sprite name="Stone" atlas="graphics" x="16" y="64" w="16" h="16" />
- 			<sprite name="Wood"  atlas="graphics" x="32" y="64" w="16" h="16" />
+ 			<sprite name="Food"  texture="graphics" x="0" y="64" w="16" h="16" />
+ 			<sprite name="Stone" texture="graphics" x="16" y="64" w="16" h="16" />
+ 			<sprite name="Wood"  texture="graphics" x="32" y="64" w="16" h="16" />
  		</resources> 	
  		<icons>
- 			<sprite name="Food"  atlas="graphics" x="0" y="48" w="16" h="16" />
- 			<sprite name="Stone" atlas="graphics" x="16" y="48" w="16" h="16" />
- 			<sprite name="Wood"  atlas="graphics" x="32" y="48" w="16" h="16" />
+ 			<sprite name="Food"  texture="graphics" x="128" y="80" w="32" h="32" />
+ 			<sprite name="Stone" texture="graphics" x="160" y="80" w="32" h="32" />
+ 			<sprite name="Wood"  texture="graphics" x="192" y="80" w="32" h="32" />
  		</icons>	
  		<sprites>
  			
- 			<!-- <sprite name="" atlas="graphics" x="" y="" w="16" h="16" /> -->
+ 			<!-- <sprite name="" texture="graphics" x="" y="" w="16" h="16" /> -->
  			
- 			<sprite name="Hut" atlas="graphics" x="0" y="128" w="16" h="16" />
- 			<sprite name="FoodBuilding" atlas="graphics" x="16" y="128" w="16" h="16" />
- 			<sprite name="StoneBuilding" atlas="graphics" x="32" y="128" w="16" h="16" />
- 			<sprite name="WoodBuilding" atlas="graphics" x="48" y="128" w="16" h="16" />
- 			<sprite name="Cave" atlas="graphics" x="64" y="128" w="16" h="16" />
+ 			<sprite name="Hut" texture="graphics" x="0" y="128" w="16" h="16" />
+ 			<sprite name="FoodBuilding" texture="graphics" x="16" y="128" w="16" h="16" />
+ 			<sprite name="StoneBuilding" texture="graphics" x="32" y="128" w="16" h="16" />
+ 			<sprite name="WoodBuilding" texture="graphics" x="48" y="128" w="16" h="16" />
+ 			<sprite name="Cave" texture="graphics" x="64" y="128" w="16" h="16" />		
 
-			<sprite name="selectTile" atlas="graphics" x="0" y="144" w="16" h="16" />
-			<sprite name="selectActor" atlas="graphics" x="16" y="144" w="16" h="16" />
+			<sprite name="selectTile" texture="graphics" x="0" y="176" w="16" h="16" />
+			<sprite name="selectActor" texture="graphics" x="16" y="176" w="16" h="16" />
+
+			<sprite name="constructionSprite" texture="graphics">
+				<frame x="96" y="144" w="16" h="16" length="210"/>
+				<frame x="112" y="144" w="16" h="16" length="180"/>
+				<frame x="128" y="144" w="16" h="16" length="150"/>
+				<frame x="144" y="144" w="16" h="16" length="120"/>
+				<frame x="128" y="144" w="16" h="16" length="150"/>
+				<frame x="112" y="144" w="16" h="16" length="180"/>				
+			</sprite>
+			
+			<sprite name="noResourcesLeftSprite" texture="graphics">
+				<frame x="96" y="160" w="16" h="16" length="210"/>
+				<frame x="112" y="160" w="16" h="16" length="180"/>
+				<frame x="128" y="160" w="16" h="16" length="150"/>
+				<frame x="144" y="160" w="16" h="16" length="120"/>
+				<frame x="128" y="160" w="16" h="16" length="150"/>
+				<frame x="112" y="160" w="16" h="16" length="180"/>				
+			</sprite>
+
+			<sprite name="unitTemp" texture="graphics">				
+				<frame  x="32" y="16" w="16" h="16" length="333" />
+				<frame  x="48" y="16" w="16" h="16" length="333" />
+				<frame  x="64" y="16" w="16" h="16" length="333" />
+				<frame  x="80" y="16" w="16" h="16" length="333" />
+			</sprite>
 
  		</sprites>
  	</graphics>
 
- 	<animations atlas="graphics" w="16" h="16">
+ 	<animations texture="graphics" w="16" h="16">
  		<anim id="idle">
  		
  		</anim>
@@ -69,28 +94,28 @@ Left : 8
  	<blueprints>
 
 		<buildings>
-			<building name="Food" type="Production" produces="Food" productionAmount="1" productionTime="10" sprite="FoodBuilding">
+			<building name="FoodVendor" type="Production" produces="Food" productionAmount="1" productionTime="10" constructionTime="5" sprite="FoodBuilding">
 				<buildingCosts>
 					<cost resource="Wood" amount="5" />
 					<cost resource="Stone" amount="5" />
 				</buildingCosts>				
 			</building>
 
-			<building name="Wood Spinner" type="Production" produces="Wood" productionAmount="1" productionTime="15" sprite="WoodBuilding">
+			<building name="WoodSpinner" type="Production" produces="Wood" productionAmount="1" productionTime="15" constructionTime="5" sprite="WoodBuilding">
 				<buildingCosts>
 					<cost resource="Wood" amount="5" />
 					<cost resource="Stone" amount="5" />
 				</buildingCosts>
 			</building>
 
-			<building name="Stone Mill" type="Production" produces="Stone" productionAmount="1" productionTime="15" sprite="StoneBuilding">
+			<building name="StoneMill" type="Production" produces="Stone" productionAmount="1" productionTime="15" constructionTime="10" sprite="StoneBuilding">
 				<buildingCosts>
 					<cost resource="Wood" amount="5" />
 					<cost resource="Stone" amount="5" />
 				</buildingCosts>
 			</building>
 
-			<building name="Reproduction Cave" type="ReproductionCave" produces="NoneCount" productionAmount="0" productionTime="0" sprite="Cave">
+			<building name="ReproductionCave" type="ReproductionCave" produces="NoneCount" productionAmount="0" productionTime="0" constructionTime="15" sprite="Cave">
 				<buildingCosts>
 					<cost resource="Food" amount="15" />
 					<cost resource="Wood" amount="15" />
@@ -98,7 +123,7 @@ Left : 8
 				</buildingCosts>
 			</building>
 
-			<building name="Hut" type="Hut" produces="NoneCount" productionAmount="0" productionTime="0"  sprite="Hut">
+			<building name="Hut" type="Hut" produces="NoneCount" productionAmount="0" productionTime="0" constructionTime="5"  sprite="Hut">
 				<buildingCosts>					
 					<cost resource="Wood" amount="5" />
 					<cost resource="Stone" amount="5" />

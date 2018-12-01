@@ -6,3 +6,11 @@
 8,9: Wood
 8,10: Wood
 7,7: Hut
+10,10: StoneMill
+11,10: WoodSpinner
+12,10: FoodVendor
+10,15: Actor
+12,15: Actor
+14,15: Actor
+11,17: Actor
+13,17: Actor

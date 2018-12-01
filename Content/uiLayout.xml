@@ -33,57 +33,47 @@
 
 		<text>
 			<padding 					x="0" y="0" />
-			<layoutSize 				x="MatchParent" y="WrapContent" />
+			<layoutSize 				x="WrapContent" y="WrapContent" />
 			<allignment					x="Left"		y="Middle" />
 		</text>
 
 	</standard>
 
 
-	<layout id="timeBar">
-		<panel>			
-			<anchor 					x="Middle" y="Top" />		
-			<margin 					val="10" />
-			<padding 					x="0" y="0" />			
-			<layoutSize 				x="WrapContent" y="WrapContent" />
-			<childLayoutOverwrite 		val="WrapContent" />
+	<layout id="resourceBar">
+		<panel>
+			<layoutSize x="WrapContent" y="WrapContent" />
+			<layoutFill val="StretchMargin" />
+			<childAllign 				x="Middle" y="Middle"/> 	
+			<margin val="10"/>
 		</panel>
-		<text>
-			<layoutSize 				x="WrapContent" y="WrapContent" />
-			<allignment					x="Middle"		y="Middle" />
-		</text>
 	</layout>
 
-	<layout id="timeBarPanel">
+	<layout id="selectionPanel">
 		<panel>
-			<hasChildLayoutOverwrite	val="false" />
-			<padding 					x="10" y="10" />
+			<anchor x="Right" y="Bottom"/>
+			<layoutSize x="WrapContent" y="WrapContent" />			
+			<childAllign x="Left" y="Top"/> 	
+			<margin val="10"/>
+		</panel>
+	</layout>
+
+	<layout id="buttonPanel">
+		<panel>
+			<anchor x="Left" y="Bottom"/>
+			<layoutSize x="WrapContent" y="WrapContent" />			
+			<childAllign x="Middle" y="Middle"/> 	
+			<margin val="10"/>
 		</panel>
 	</layout>	
 
-	<layout id="storeScreen">
+	<layout id="mouseOverPanel">
 		<panel>
-			<childAllign 				x="Left" y="Top" />
+			<anchor x="Right" y="Top"/>
+			<layoutSize x="WrapContent" y="WrapContent" />			
+			<childAllign x="Left" y="Top"/> 	
+			<margin val="10"/>
 		</panel>
-		<button>
-			<padding 					x="6" y="6" />
-			<layoutSize 				x="WrapContent" y="WrapContent" />
-		</button>
-	</layout>
-
-	<layout id="mapMain">
-		<panel>			
-			<layoutSize 				x="FixedSize" y="WrapContent" />							
-			<childLayoutOverwrite		val="MatchParent" /> 	
-			<childAllign 				x="Left" y="Top"/> 	
-		</panel>
-	</layout>
-
-	<layout id="bottomButtons">
-		<panel>
-			<childLayoutOverwrite		val="WrapContent" /> 	
-			<childAllign				x="Right" y="Middle" />
-		</panel>
-	</layout>
+	</layout>	
 
 </layouts>

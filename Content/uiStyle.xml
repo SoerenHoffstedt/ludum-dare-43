@@ -31,7 +31,7 @@
 		<keyTextColor 				id="text"/>
 		<valueTextColor 			id="text"/>
 		<keyTextFont 				id="textSmall"/>
-		<valueTextFont	 			id="textNormal"/>
+		<valueTextFont	 			id="textSmall"/>
 
 		<titlebarSprite				id="titlebar"/>
 		<titlebarCloseSprite		id="close"/>
@@ -43,36 +43,20 @@
 
 	</standard>
 
-	<style id="mainButtonPanel">
+	<style id="resourceBar">
+		<panelHasSprite val="true"/>
+	</style>
+
+	<style id="selectionPanel">
+		<panelHasSprite val="true"/>
+	</style>
+
+	<style id="mouseOverPanel">
 		<panelHasSprite				val="true"/>		
 	</style>
 
-	<style id="storeScreen">
-		
-	</style>
-
-	<style id="timeBar">
-		<textFont 					id="textSmall" />
-	</style>
-
-	<style id="speedControls">
-		
-	</style>
-
-	<style id="moneyPanel">
-		<panelHasSprite 			val="true"/>
-	</style>
-
-	<style id="panelSpriteOn">
-		<panelHasSprite 			val="true"/>	
-	</style>
-
-	<style id="panelSpriteOff">
-		<panelHasSprite 			val="false"/>
-	</style>
-
-	<style id="mapMain">
-		<textFont 					id="textSmall"/>
+	<style id="buttonPanel">
+		<panelHasSprite				val="true"/>		
 	</style>
 
 	<sprites>

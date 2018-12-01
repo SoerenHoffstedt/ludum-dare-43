@@ -17,7 +17,8 @@ namespace LD43.World
         public ResourceType resourceType;
         public int resourceAmount;
 
-        public Sprite sprite;
+        public Sprite spriteTile;
+        public Sprite spriteResource;
 
         public Tile(Point coord)
         {            
@@ -25,11 +26,20 @@ namespace LD43.World
             building = null;
             resourceType = ResourceType.NoneCount;
             resourceAmount = 0;
-        }        
+        }                
 
-        public void PlaceBuilding(BuildingBlueprint blueprint)
+        public bool CanPlaceBuilding(BuildingBlueprint blueprint)
         {
-            building = new Building(blueprint);
+            if (building != null)
+                return false;
+            if (blueprint.type == BuildingType.Production && resourceType != blueprint.produces)
+                return false;
+            return true;
+        }
+
+        public bool IsWalkable()
+        {
+            return building == null;
         }
 
     }

@@ -18,17 +18,34 @@ namespace LD43
         public static Sprite[] TileSprites;
         public static Dictionary<ResourceType, Sprite> ResourceSprites;
         public static Dictionary<ResourceType, Sprite> ResourceIcons;
-
         public static Dictionary<string, Sprite> OtherSprites;
+
+        public static Dictionary<string, BuildingBlueprint> Blueprints;
+        private static ContentManager Content;
 
         public static void Load(ContentManager Content)
         {
+            Assets.Content = Content;
             XmlDocument def = new XmlDocument();
             def.Load("Content/def.xml");
 
             atlas = Content.Load<Texture2D>("graphics");
             LoadTiles(def.SelectSingleNode("definitions/tiles"));
             LoadSprites(def);
+            LoadBlueprints(def);
+        }
+
+        private static void LoadBlueprints(XmlDocument def)
+        {
+            var nodeList = def.SelectNodes("definitions/blueprints/buildings/building");
+            Blueprints = new Dictionary<string, BuildingBlueprint>(nodeList.Count);
+
+            foreach (XmlNode blueprintNode in nodeList)
+            {
+                BuildingBlueprint bp = new BuildingBlueprint(blueprintNode);
+                Blueprints.Add(bp.name, bp);
+
+            }
         }
 
         private static void LoadSprites(XmlDocument def)
@@ -42,11 +59,8 @@ namespace LD43
             foreach(XmlNode spriteNode in nodeList)
             {
                 string name = spriteNode.Attributes["name"].Value;
-                int w = int.Parse(spriteNode.Attributes["w"].Value);
-                int h = int.Parse(spriteNode.Attributes["h"].Value);
-                int x = int.Parse(spriteNode.Attributes["x"].Value);
-                int y = int.Parse(spriteNode.Attributes["y"].Value);
-                Sprite sp = new Sprite(atlas, new Rectangle(x, y, w, h));
+
+                Sprite sp = Sprite.Parse(spriteNode, Content);            
                 OtherSprites.Add(name, sp);
             }
 

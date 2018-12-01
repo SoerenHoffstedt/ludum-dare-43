@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LD43.World;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,40 +9,38 @@ using System.Threading.Tasks;
 namespace LD43.Actors
 {
     public class Task
-    {        
+    {
+        public Tile tile;
         public Point position;
-        public float length;
-        public readonly float totalLength;
-        public Action OnCompletion;
-        public Action<float> OnUpdate;
-        private float lastPercentage;
+        public Action<Actor> OnStart;
+        public Action<Actor> OnCompletion;        
+        public Func<bool> CheckFinish;
+        private Actor workedBy = null;
 
-        public Task(Point position, float length, Action OnCompletion, Action OnUpdate)
+
+        public Task(Tile tile, Point position, Func<bool> CheckFinish, Action<Actor> OnStart, Action<Actor> OnCompletion)
         {
+            this.tile = tile;
             this.position       = position;
-            this.length         = length;
-            this.totalLength    = length;
+            this.CheckFinish    = CheckFinish;            
+            this.OnStart        = OnStart;
             this.OnCompletion   = OnCompletion;
+        }
+
+        public void Start(Actor startedBy)
+        {
+            OnStart(startedBy);
+            workedBy = startedBy;
         }
 
         public bool UpdateTask(float dt)
         {
-            length -= dt;
-            if (length <= 0f)
+            if (CheckFinish())
             {
-                OnCompletion();
+                OnCompletion(workedBy);
+                workedBy = null;
                 return true;
             }
-            if (OnUpdate != null)
-            {
-                //calc what percentage is finished and only call OnUpdate when its a bigger percentage than before.
-                float perc = 1f -  (length / totalLength);
-                if(lastPercentage < perc)
-                {
-                    OnUpdate(perc);
-                    lastPercentage = perc;
-                }
-            }            
             return false;
         }
 
