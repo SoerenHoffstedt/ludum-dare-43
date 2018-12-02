@@ -6,6 +6,7 @@ using LD43.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Xml;
 
 namespace LD43
@@ -19,16 +20,15 @@ namespace LD43
 
         public Game1()
         {
+            Config.LoadFromDisc("Content/config.xml");        
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
             IsMouseVisible = true;
             graphics.PreferredBackBufferWidth = Config.Resolution.X;
             graphics.PreferredBackBufferHeight = Config.Resolution.Y;
-            graphics.IsFullScreen = false;
-            Window.IsBorderless = false;
-            //graphics.SynchronizeWithVerticalRetrace = false;
-            //IsFixedTimeStep = false;
+            graphics.IsFullScreen = Config.Fullscreen;
+            
             graphics.ApplyChanges();
             SpriteBatchEx.GraphicsDevice = GraphicsDevice;
 
@@ -45,14 +45,18 @@ namespace LD43
             Style.InitializeStyle("Content/uiStyle.xml", Content);
             Layout.InitializeLayouts("Content/uiLayout.xml");
 
+            XmlDocument effects = new XmlDocument();
+            effects.Load("Content/effects.xml");
+            Effects.Initialize(effects, Assets.EffectsTexture);
+
+            Window.Title = $"Head Spin Builder - Sacrifice Edition!";
         }
 
 
         protected override void Initialize()
         {
-
-            currScene = new GameScene(Content, GraphicsDevice, this);
-
+            //ShowNewGame();
+            ShowMainMenu();
             base.Initialize();
         }
 
@@ -76,24 +80,47 @@ namespace LD43
 
             double dt = gameTime.ElapsedGameTime.TotalSeconds;
 
-            Input.Update();
-
-            currScene.Update(dt);
-
+            Input.Update();            
+            Timer.UpdateAll((float)dt);
+            Effects.Update(dt);
             Animator.Update(dt);
+            currScene.Update(dt);
 
             base.Update(gameTime);
         }
 
+        public void ShowGameEndScreen(GameEndScreenInfo info)
+        {
+            MediaPlayer.Stop();
+            currScene = new EndScreen(Content, GraphicsDevice, this, info);
+            currScene.Initialize();
+            Sounds.Reset();
+            Effects.Reset();
+        }
+
+        public void ShowNewGame(Difficulty difficulty)
+        {
+            MediaPlayer.Stop();
+            currScene = new GameScene(Content, GraphicsDevice, this, difficulty);
+            currScene.Initialize();
+            Sounds.Reset();
+            Effects.Reset();
+        }
+
+        public void ShowMainMenu()
+        {
+            MediaPlayer.Stop();
+            currScene = new MainMenu(Content, GraphicsDevice, this);
+            currScene.Initialize();
+            Sounds.Reset();
+            Effects.Reset();
+        }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(new Color(61, 59, 76));
-            double dt = gameTime.ElapsedGameTime.TotalMilliseconds;
-            Window.Title = $"Head Spin Builder - Delta Time: {dt.ToString("0.000")} - FPS: {(1000 / dt).ToString("000.0")}";
-            
+            double dt = gameTime.ElapsedGameTime.TotalMilliseconds;                        
             currScene.Draw(spriteBatch);
-
             base.Draw(gameTime);
         }
     }

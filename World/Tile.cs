@@ -30,16 +30,22 @@ namespace LD43.World
 
         public bool CanPlaceBuilding(BuildingBlueprint blueprint)
         {
+            if(blueprint.type == BuildingType.Destruction)
+            {
+                return building != null;
+            }
             if (building != null)
                 return false;
             if (blueprint.type == BuildingType.Production && resourceType != blueprint.produces)
+                return false;
+            if (resourceType != ResourceType.NoneCount && blueprint.type != BuildingType.Production)
                 return false;
             return true;
         }
 
         public bool IsWalkable()
         {
-            return building == null;
+            return Exists && building == null;
         }
 
     }

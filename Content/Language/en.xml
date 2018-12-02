@@ -4,7 +4,17 @@
  	</-->
 
  	<string id="start">Start</string>
-	<string id="exit">Quit (thanks for playing)</string>
+ 	<string id="thanks">Thanks for playing!</string>
+ 	<string id="ld">Made in 48 hours for Ludum Dare 43 (Dec. 2018)</string>
+ 	<string id="by">by Sören Hoffstedt @yellow_what.</string>
+	<string id="exit">Quit</string>
+	<string id="howto">How To Play</string>
+	
+
+	<string id="newGame">New Game</string>
+	<string id="newGameNormal">New Game: Normal</string>
+	<string id="newGameHarder">New Game: Harder</string>
+	<string id="mainMenu">Main Menu</string>
 
 	<string id="population">Population</string>
 	<string id="Wood">Wood</string>
@@ -12,7 +22,30 @@
 	<string id="Stone">Stone</string>
 	<string id="NoneCount"> - </string>
 
-	<string id="Hut">Production</string>
+	<string id="SawMill">Saw Mill</string>
+	<string id="Farm">Farm</string>
+	<string id="StoneQuarry">Stone Quarry</string>
+	<string id="ReproductionCave">Reproduction Cave</string>
+
+	<string id="youLost">You lost the game...</string>
+	<string id="newDay">New Day</string>
+	<string id="happySacrificed">A Head Spinner was happily sacrificed</string>	
+
+	<string id="Hut">Home</string>
+	<string id="HutExplain">Adds two population spots</string>
+	<string id="ReproductionCaveExplain">Gives birth to a Head Spinner</string>
+	
+	
+	<string id="notPlaceableHere">Not placeable here</string>
+	<string id="notEnoughHuts">Not enough population capacity. Build huts.</string>
+	<string id="notEnoughResources">Not enough resources.</string>
+	<string id="death">Deaths by starvation:</string>
+	<string id="birth">A Head Spinner was born.</string>
+
+	<string id="loseMsg">You lost. All Head Spinners died.</string>
+	
+
+	<string id="selectSacrificeText">Select who will be sacrificed!</string>
 
 </language>
 

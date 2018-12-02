@@ -13,8 +13,23 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin config.xml
+/copy:config.xml
+
 #begin def.xml
 /copy:def.xml
+
+#begin effects.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:effects.png
 
 #begin effects.xml
 /copy:effects.xml
@@ -65,8 +80,95 @@
 #begin level.txt
 /copy:level.txt
 
+#begin Sounds/birth.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/birth.wav
+
+#begin Sounds/boom.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/boom.wav
+
+#begin Sounds/buildConstructed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/buildConstructed.wav
+
+#begin Sounds/click.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/click.wav
+
+#begin Sounds/death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/death.wav
+
+#begin Sounds/firstSong.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/firstSong.wav
+
+#begin Sounds/newDay.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/newDay.wav
+
+#begin Sounds/notification.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/notification.wav
+
+#begin Sounds/notPlaceable.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/notPlaceable.wav
+
+#begin Sounds/placed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/placed.wav
+
+#begin Sounds/resourceGained.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/resourceGained.wav
+
+#begin Sounds/sacrificed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/sacrificed.wav
+
+#begin Sounds/sacrificeIntro.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/sacrificeIntro.wav
+
+#begin Sounds/secondSong.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Sounds/secondSong.wav
+
 #begin Sounds/sounds.xml
 /copy:Sounds/sounds.xml
+
+#begin tut.txt
+/copy:tut.txt
 
 #begin ui_atlas.png
 /importer:TextureImporter

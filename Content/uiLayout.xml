@@ -62,9 +62,17 @@
 		<panel>
 			<anchor x="Left" y="Bottom"/>
 			<layoutSize x="WrapContent" y="WrapContent" />			
-			<childAllign x="Middle" y="Middle"/> 	
+			<childAllign x="Middle" y="Top"/> 	
 			<margin val="10"/>
+			<childLayoutOverwrite val="WrapContent" />
 		</panel>
+		<button>
+			<padding					x="8" y="8" />
+			<layoutSize 				x="FixedSize" y="FixedSize" />
+		</button>
+		<text>
+			<allignment					x="Left"		y="Top" />
+		</text>
 	</layout>	
 
 	<layout id="mouseOverPanel">
@@ -74,6 +82,67 @@
 			<childAllign x="Left" y="Top"/> 	
 			<margin val="10"/>
 		</panel>
+		<text>			
+			<allignment					x="Left"		y="Top" />
+		</text>
+	</layout>	
+
+	<layout id="notifications">
+		<panel>
+			<anchor x="Right" y="Bottom"/>
+			<layoutSize x="FixedSize" y="FixedSize" />			
+			<childAllign x="Left" y="Top"/> 	
+			<margin val="4"/>
+		</panel>
+		<text>			
+			<layoutSize x="MatchParent" y="WrapContent" />		
+		</text>
+	</layout>	
+
+	<layout id="selectSacrificePanel">
+		<panel>
+			<anchor x="Middle" y="Top"/>
+			<layoutSize x="FixedSize" y="FixedSize" />			
+			<childAllign x="Middle" y="Middle"/> 				
+		</panel>
+		<text>			
+			<allignment x="Middle" y="Middle" />			
+		</text>
+	</layout>	
+
+	<layout id="endScreen">
+		<panel>
+			<anchor x="Middle" y="Middle"/>
+			<layoutSize x="WrapContent" y="WrapContent" />			
+			<childAllign x="Middle" y="Middle"/>
+			<margin val="20"/> 				
+		</panel>
+		<text>			
+			<allignment x="Middle" y="Middle" />			
+		</text>
+	</layout>	
+
+	<layout id="endScreenButtons">
+		<panel>
+			<anchor x="Left" y="Top"/>
+			<layoutSize x="WrapContent" y="WrapContent" />			
+			<childAllign x="Middle" y="Middle"/> 				
+		</panel>
+		<button>
+			<padding x="16" y="16" />			
+		</button>		
+	</layout>	
+
+	<layout id="mainMenu">
+		<panel>
+			<anchor x="Middle" y="Middle"/>
+			<layoutSize x="FixedSize" y="FixedSize" />			
+			<childAllign x="Middle" y="Middle"/> 				
+			<margin val="30"/>
+		</panel>
+		<text>			
+			<allignment x="Middle" y="Middle" />			
+		</text>		
 	</layout>	
 
 </layouts>

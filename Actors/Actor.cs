@@ -2,6 +2,7 @@
 using LD43.Scenes;
 using LD43.World;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,33 @@ namespace LD43.Actors
 {
     public class Actor
     {
+        GameScene game;
+
         private static Point drawOffset = new Point(0, -4);        
         private float posX, posY;
         public float tileWalkDuration = 0.5f;
-        public Task currTask = null;
-        public Sprite sprite;
+        public Task currTask = null;        
         public Path currPath = null;
         private int pathIndex;
+        public bool Dead = false;
 
-        public Actor(Point pos)
-        {            
+        Sprite actorWalking;
+        Sprite actorIdle;
+        Sprite actorCelebrating;
+        Sprite actorSelection;
+        Sprite actorWorking;
+
+        public Actor(Point pos, GameScene game)
+        {
+            this.game = game;
             posX = pos.X;
             posY = pos.Y;
-            sprite = Assets.OtherSprites["unitTemp"];
+
+            actorWalking        = Assets.OtherSprites["actorWalking"].CopyInstance();
+            actorIdle           = Assets.OtherSprites["actorIdle"].CopyInstance();
+            actorCelebrating    = Assets.OtherSprites["actorCelebrating"].CopyInstance();
+            actorSelection      = Assets.OtherSprites["actorSelection"].CopyInstance();
+            actorWorking        = Assets.OtherSprites["actorWorking"].CopyInstance();
         }
 
         public bool IsBusy()
@@ -34,7 +49,7 @@ namespace LD43.Actors
 
         public void GoToTask(Task task)
         {
-            currPath = new Path(this, task.tile, () => StartTask(task));
+            currPath = new Path(this, task.tile, task);
             StartPath();
         }
 
@@ -50,14 +65,40 @@ namespace LD43.Actors
             return new Point((int)(posX + 0.5f), (int)(posY + 0.5f)) + drawOffset;
         }
 
+        public void Render(SpriteBatch spriteBatch, bool sacrificeSelection, bool sacrificeCelebrating)
+        {
+            Point drawPos = DrawPosition();
+
+            if (sacrificeSelection)
+                actorCelebrating.Render(spriteBatch, drawPos);
+            else if (sacrificeCelebrating)
+                actorCelebrating.Render(spriteBatch, drawPos);
+            else if (currTask != null)
+            {
+                if (currTask.type == TaskType.Idle)
+                    actorIdle.Render(spriteBatch, drawPos);
+                else if (currTask.type == TaskType.Construction)
+                    actorWorking.Render(spriteBatch, drawPos);
+            }
+            else if (currPath != null)
+            {
+                actorWalking.Render(spriteBatch, drawPos);
+            }
+            else
+                actorIdle.Render(spriteBatch, drawPos);
+
+        }
+
         public void StartPath()
         {
             List<Point> waypoints = currPath.waypoints;
             pathIndex = 0;
 
-            if (waypoints.Count == 0)
-            {
-                currPath.OnReach();
+            if(waypoints == null || waypoints.Count == 0)
+            {            
+                //abort the task                
+                game.ReQueueTask(currPath.taskToStartOnReach);
+                currPath.taskToStartOnReach = null;
                 currPath = null;
                 return;
             }
@@ -66,7 +107,7 @@ namespace LD43.Actors
             {
                 if (waypoints.Count == 1)
                 {
-                    currPath.OnReach();
+                    StartTask(currPath.taskToStartOnReach);
                     currPath = null;
                     return;
                 }
@@ -83,8 +124,8 @@ namespace LD43.Actors
         {
             var waypoints = currPath.waypoints;
             if (pathIndex == waypoints.Count - 1)
-            {
-                currPath.OnReach();
+            {                
+                StartTask(currPath.taskToStartOnReach);
                 currPath = null;
             }
             else

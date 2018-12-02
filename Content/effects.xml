@@ -1,10 +1,17 @@
 <effects>
 
-	<effect id="explosion" atlas="tiles" frameTime="167" offsetX="-3" offsetY="-6">
-		<frame x="2" y="10"/>
-		<frame x="3" y="10"/>
-		<frame x="4" y="10"/>
-		<frame x="5" y="10"/>
+	<effect id="sacrifice" atlas="effects" frameTime="167" offsetX="0" offsetY="-6">
+		<frame x="0" y="0"/>
+		<frame x="1" y="0"/>
+		<frame x="2" y="0"/>
+		<frame x="3" y="0"/>
+	</effect>
+
+	<effect id="birth" atlas="effects" frameTime="167" offsetX="0" offsetY="-6">
+		<frame x="0" y="0"/>
+		<frame x="1" y="0"/>
+		<frame x="2" y="0"/>
+		<frame x="3" y="0"/>
 	</effect>
 
 </effects>

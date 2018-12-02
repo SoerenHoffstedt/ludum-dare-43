@@ -8,27 +8,37 @@ using System.Threading.Tasks;
 
 namespace LD43.Actors
 {
-    public class Task
+
+    public enum TaskType
     {
-        public Tile tile;
-        public Point position;
+        Idle,
+        Construction
+    }
+
+    public class Task
+    {        
+        public TaskType type; //for debug
+        public Tile tile;        
         public Action<Actor> OnStart;
         public Action<Actor> OnCompletion;        
         public Func<bool> CheckFinish;
         private Actor workedBy = null;
+        private HashSet<Task> activeTasks;
+        public bool MarkedForDeletion { get; private set; } = false;
 
-
-        public Task(Tile tile, Point position, Func<bool> CheckFinish, Action<Actor> OnStart, Action<Actor> OnCompletion)
+        public Task(Tile tile, Func<bool> CheckFinish, Action<Actor> OnStart, Action<Actor> OnCompletion, HashSet<Task> activeTasks, TaskType type)
         {
-            this.tile = tile;
-            this.position       = position;
+            this.type = type;
+            this.tile = tile;            
             this.CheckFinish    = CheckFinish;            
             this.OnStart        = OnStart;
-            this.OnCompletion   = OnCompletion;
+            this.OnCompletion   = OnCompletion;            
+            this.activeTasks    = activeTasks;
         }
 
         public void Start(Actor startedBy)
         {
+            activeTasks.Add(this);
             OnStart(startedBy);
             workedBy = startedBy;
         }
@@ -38,10 +48,17 @@ namespace LD43.Actors
             if (CheckFinish())
             {
                 OnCompletion(workedBy);
+                MarkedForDeletion = true;
+                workedBy.currTask = null;
                 workedBy = null;
                 return true;
             }
             return false;
+        }        
+
+        public void StopWork()
+        {
+            OnCompletion(workedBy);
         }
 
     }

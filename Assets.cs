@@ -14,7 +14,10 @@ namespace LD43
 {
     public static class Assets
     {
-        public static Texture2D atlas;
+        public static Texture2D WorldTexture;
+        public static Texture2D EffectsTexture;
+        public static Texture2D UiTexture;
+
         public static Sprite[] TileSprites;
         public static Dictionary<ResourceType, Sprite> ResourceSprites;
         public static Dictionary<ResourceType, Sprite> ResourceIcons;
@@ -29,7 +32,8 @@ namespace LD43
             XmlDocument def = new XmlDocument();
             def.Load("Content/def.xml");
 
-            atlas = Content.Load<Texture2D>("graphics");
+            WorldTexture = Content.Load<Texture2D>("graphics");
+            EffectsTexture = Content.Load<Texture2D>("effects");
             LoadTiles(def.SelectSingleNode("definitions/tiles"));
             LoadSprites(def);
             LoadBlueprints(def);
@@ -77,7 +81,7 @@ namespace LD43
                 int h = int.Parse(spriteNode.Attributes["h"].Value);
                 int x = int.Parse(spriteNode.Attributes["x"].Value);
                 int y = int.Parse(spriteNode.Attributes["y"].Value);
-                Sprite sp = new Sprite(atlas, new Rectangle(x, y, w, h));
+                Sprite sp = new Sprite(WorldTexture, new Rectangle(x, y, w, h));
                 ResourceSprites.Add(type, sp);
             }
         }
@@ -93,7 +97,7 @@ namespace LD43
                 int h = int.Parse(spriteNode.Attributes["h"].Value);
                 int x = int.Parse(spriteNode.Attributes["x"].Value);
                 int y = int.Parse(spriteNode.Attributes["y"].Value);
-                Sprite sp = new Sprite(atlas, new Rectangle(x,y,w,h));
+                Sprite sp = new Sprite(WorldTexture, new Rectangle(x,y,w,h));
                 ResourceIcons.Add(type, sp);
             }
         }
@@ -109,7 +113,7 @@ namespace LD43
                 int index = int.Parse(n.Attributes["index"].Value);
                 int x = int.Parse(n.Attributes["x"].Value) * w;
                 int y = int.Parse(n.Attributes["y"].Value) * h;
-                TileSprites[index] = new Sprite(atlas, new Rectangle(x, y, w, h));
+                TileSprites[index] = new Sprite(WorldTexture, new Rectangle(x, y, w, h));
             }
         }
 

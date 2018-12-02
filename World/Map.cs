@@ -22,6 +22,7 @@ namespace LD43.World
 
         Sprite constructionSprite;
         Sprite noResourcesLeftSprite;
+        Sprite resourceWorkingSprite;
 
         public Map(GameScene game)
         {
@@ -30,7 +31,10 @@ namespace LD43.World
 
             noResourcesLeftSprite = Assets.OtherSprites["noResourcesLeftSprite"];
             constructionSprite = Assets.OtherSprites["constructionSprite"];
+            resourceWorkingSprite = Assets.OtherSprites["workingSprite"];
         }
+
+        private const int RESOURCE_START = 30;
 
         private void LoadMap()
         {
@@ -50,13 +54,11 @@ namespace LD43.World
                 }
             }
 
-            tiles[10, Size.Y - 1].Exists = false;
+            /*tiles[10, Size.Y - 1].Exists = false;
             tiles[11, Size.Y - 1].Exists = false;
             tiles[11, Size.Y - 2].Exists = false;
             tiles[12, Size.Y - 1].Exists = false;
-            tiles[0, Size.Y - 1].Exists = false;
-
-            tiles[10, Size.Y - 5].Exists = false;
+            tiles[0, Size.Y - 1].Exists = false;*/            
 
             for (int x = 0; x < w; x++)
             {
@@ -99,35 +101,35 @@ namespace LD43.World
                         case "Wood":
                             t.spriteResource = Assets.ResourceSprites[ResourceType.Wood];
                             t.resourceType = ResourceType.Wood;
-                            t.resourceAmount = 100;
+                            t.resourceAmount = RESOURCE_START;
                             break;
                         case "Food":
                             t.spriteResource = Assets.ResourceSprites[ResourceType.Food];
                             t.resourceType = ResourceType.Food;
-                            t.resourceAmount = 100;
+                            t.resourceAmount = RESOURCE_START;
                             break;
                         case "Stone":
                             t.spriteResource = Assets.ResourceSprites[ResourceType.Stone];
                             t.resourceType = ResourceType.Stone;
-                            t.resourceAmount = 100;
+                            t.resourceAmount = RESOURCE_START;
                             break;
                         case "Hut":
-                            PlaceBuilding(t, Assets.Blueprints[splits[2]]);
+                            PlaceBuilding(t, Assets.Blueprints[splits[2]], true);                            
                             break;
-                        case "StoneMill":
+                        case "StoneQuarry":
                             t.resourceType = ResourceType.Stone;
-                            t.resourceAmount = 100;
-                            PlaceBuilding(t, Assets.Blueprints[splits[2]]);
+                            t.resourceAmount = RESOURCE_START;
+                            PlaceBuilding(t, Assets.Blueprints[splits[2]], true);
                             break;
-                        case "FoodVendor":
+                        case "Farm":
                             t.resourceType = ResourceType.Food;
-                            t.resourceAmount = 1;
-                            PlaceBuilding(t, Assets.Blueprints[splits[2]]);
+                            t.resourceAmount = RESOURCE_START;
+                            PlaceBuilding(t, Assets.Blueprints[splits[2]], true);
                             break;
-                        case "WoodSpinner":
+                        case "SawMill":
                             t.resourceType = ResourceType.Stone;
-                            t.resourceAmount = 100;
-                            PlaceBuilding(t, Assets.Blueprints[splits[2]]);
+                            t.resourceAmount = RESOURCE_START;
+                            PlaceBuilding(t, Assets.Blueprints[splits[2]], true);
                             break;
                         case "Actor":
                             game.SpawnActor(t);
@@ -138,12 +140,29 @@ namespace LD43.World
             }
         }
 
-        public void PlaceBuilding(Tile t, BuildingBlueprint blueprint)
+        public void PlaceBuilding(Tile t, BuildingBlueprint blueprint, bool initialPlaceWithoutConstruction = false)
         {
-            t.building = new Building(t.coord, blueprint);
-            blueprint.OnPlacement();
-            game.AddConstructionTask(t);
-        }
+            if (initialPlaceWithoutConstruction)
+            {
+                t.building = new Building(t.coord, blueprint);
+                blueprint.OnPlacement(game);
+                t.building.constructionTimer = 0f;
+                return;
+            }
+
+            if(blueprint.type == BuildingType.Destruction)
+            {
+                t.building.blueprint.OnDestruction(game);
+                t.building = null;
+                Sounds.Play("buildingPlaced");
+            } else
+            {
+                t.building = new Building(t.coord, blueprint);
+                blueprint.OnPlacement(game);
+                game.AddConstructionTask(t);
+                Sounds.Play("buildingPlaced");
+            }
+        }        
 
         public void Update(float dt)
         {
@@ -168,10 +187,14 @@ namespace LD43.World
 
                             if (!t.building.IsBuilt())
                                 constructionSprite.Render(spriteBatch, pos);                            
-                            else if(t.building.blueprint.type == BuildingType.Production && t.resourceAmount == 0)
-                                noResourcesLeftSprite.Render(spriteBatch, pos);
-                            
-                                
+                            else if(t.building.blueprint.type == BuildingType.Production)
+                                if (t.resourceAmount == 0)
+                                    noResourcesLeftSprite.Render(spriteBatch, pos);
+                                else
+                                    resourceWorkingSprite.Render(spriteBatch, pos);
+
+
+
                         }
                     }
                 }

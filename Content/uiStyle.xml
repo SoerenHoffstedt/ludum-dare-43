@@ -59,8 +59,33 @@
 		<panelHasSprite				val="true"/>		
 	</style>
 
+	<style id="notifications">
+		<panelHasSprite				val="true"/>		
+		<panelSprite 				id="notificationsPanel"/>
+	</style>
+
+	<style id="selectSacrificePanel">
+		<panelHasSprite				val="true"/>		
+		<textFont 					id="textLarge"/>
+	</style>
+
+	<style id="endScreen">		
+		<textFont 					id="textLarge"/>
+		<buttonFont					id="textNormal" />
+	</style>
+
+	<style id="mainMenu">			
+		<textFont 					id="textLarge"/>
+		<buttonFont					id="textLarge" />
+	</style>
+
+	<style id="tutText">			
+		<textFont 					id="textSmall"/>		
+	</style>
+
 	<sprites>
-		<sprite id="panel" 					texture="ui_atlas" x="64" y="0" w="16" h="16" up="6" down="6" left="6" right="6"/>
+		<sprite id="panel" 					texture="ui_atlas" x="64" y="0" w="16" h="16" up="6" down="6" left="6" right="6"/>		
+		<sprite id="notificationsPanel" 	texture="ui_atlas" x="80" y="0" w="16" h="16" up="6" down="6" left="6" right="6"/>
 		<sprite id="button"			 		texture="ui_atlas" x="32" y="0" w="16" h="16" up="6" down="6" left="6" right="6"/>
 		<sprite id="checkbox" 				texture="ui_atlas" x="0" y="64" w="16" h="16" up="7" down="7" left="7" right="7"/>
 		<sprite id="checkboxSelection" 		texture="ui_atlas" x="64" y="64" w="32" h="32" />

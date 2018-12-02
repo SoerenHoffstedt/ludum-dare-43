@@ -96,7 +96,7 @@ namespace LD43.Actors
 
         private static bool IsInRange(int x, int y)
         {
-            return x > 0 && y > 0 && x < Map.Size.X && y < Map.Size.Y;
+            return x >= 0 && y >= 0 && x < Map.Size.X && y < Map.Size.Y;
         }
 
         public static IEnumerable<Point> IterateNeighboursFourDir(int x, int y)

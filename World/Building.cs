@@ -1,5 +1,6 @@
 ﻿using Barely.Util;
 using LD43.Actors;
+using LD43.Scenes;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace LD43.World
         Production,
         Hut,
         ReproductionCave,
-        Main
+        Destruction //hack to allow having a blueprint, check if this is placed and than destroy the building instead.
     }
 
     public class Building
@@ -61,15 +62,20 @@ namespace LD43.World
             workedBy = null;
         }
 
-        public void FinishWork()
-        {
-            //TODO: tell actor that he is done.
-            workedBy = null;
+        public void FinishWork(GameScene game)
+        {            
+            //workedBy = null;
+            if(blueprint.type == BuildingType.ReproductionCave)
+            {
+                game.ReproductionCaveFinished(this);
+            }
         }
     }
 
     public class BuildingBlueprint
     {
+        private const int POP_PER_HUT = 2;
+
         public string name;
         public BuildingType type;
         public ResourceType produces;
@@ -80,7 +86,8 @@ namespace LD43.World
 
         public int[] buildingCosts;
 
-        public Sprite sprite;        
+        public Sprite sprite;
+        public Sprite spriteIcon;
 
         public BuildingBlueprint(XmlNode xmlDef)
         {
@@ -98,17 +105,39 @@ namespace LD43.World
                 buildingCosts[(int)costType] = costAmount;
             }
             string spriteName = xmlDef.Attributes["sprite"].Value;
-            sprite = Assets.OtherSprites[spriteName];            
+            sprite = Assets.OtherSprites[spriteName];
+            spriteIcon = Assets.OtherSprites[spriteName + "Icon"];
         }
 
-        public void OnPlacement()
+        public void OnPlacement(GameScene game)
         {
-
+            for(int i = 0; i < (int)ResourceType.NoneCount; ++i)
+            {                
+                game.resources[i] -= buildingCosts[i];
+            }
+            if(type == BuildingType.Hut)
+            {
+                game.populationMax += POP_PER_HUT;
+            }
         }
 
-        public void OnDestruction()
+        public bool GameHasEnoughResources(GameScene game)
+        {
+            for (int i = 0; i < (int)ResourceType.NoneCount; ++i)
+            {
+                if (game.resources[i] < buildingCosts[i])
+                    return false;
+            }
+            return true;
+        }
+
+        public void OnDestruction(GameScene game)
         {
 
+            if (type == BuildingType.Hut)
+            {
+                game.populationMax -= POP_PER_HUT;
+            }
         }
     }
 }
