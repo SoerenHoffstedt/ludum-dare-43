@@ -1,6 +1,6 @@
 # Head Spin Builder - Sacrifice Edition!
 
-This repo is the source code for my entry to Ludum Dare 43. You can check the Ludum Dare page out here and download the game on itch.io.
+This repo is the source code for my entry to Ludum Dare 43. You can check the Ludum Dare page out [here](https://ldjam.com/events/ludum-dare/43/head-spin-builder-sacrifice-edition) and download the game on [itch.io](https://meursault.itch.io/head-spin-builder).
 
 It uses Monogame and builts on top of my own "engine" library. This library is not publicly available at the moment but you can find it as EngineLibrary.zip in this repo.
 
